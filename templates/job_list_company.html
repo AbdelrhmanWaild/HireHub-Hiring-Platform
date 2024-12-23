@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Job Listings</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            background-color: #b87333;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Banner Styling */
+        .banner {
+            width: 870px;
+            background-color: white;
+            /* max-width: 900px; */
+            height: 439px;
+            background-image: url("../static/images/th.png"); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 26px;
+            color: #b87333;
+            position: fixed; /* Make the title float */
+            top: 490px;
+            left: 10%; /* Position on the left side */
+            transform: translateY(-50%); /* Adjust for proper centering */
+            z-index: 10; /* Ensure it appears above other content */
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Filter Section Styling */
+        .filters {
+            background-color: #12284c;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filters label {
+            font-weight: bold;
+            flex: 1 1 100%;
+            color: #b87333;
+        }
+
+        .filters select, .filters input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1 1 45%;
+            font-size: 16px;
+        }
+
+        .filters input[type="number"] {
+            flex: 1 1 calc(50% - 10px);
+        }
+
+        /* Job List Styling */
+        ul#job-list {
+            background-color: #b87333;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: 600px;
+            color: white;
+            font-size: x-large;
+        }
+
+        ul#job-list li {
+            background-color: #12284c;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            color: #b87333;
+            font-size: medium;
+        }
+
+        ul#job-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        ul#job-list li h3 {
+            font-size: 18px;
+            color: #007bff;
+            margin: 0 0 10px;
+        }
+
+        ul#job-list li h3 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul#job-list li h3 a:hover {
+            text-decoration: underline;
+        }
+
+        ul#job-list li p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        ul#job-list li p strong {
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+            }
+
+            .filters select, .filters input {
+                flex: 1 1 100%;
+            }
+
+            ul#job-list li {
+                padding: 10px;
+            }
+
+            h1 {
+                left: 5%; /* Adjust for smaller screens */
+                font-size: 20px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+    <script>
+        function filterJobs() {
+            const locationFilter = document.getElementById('location').value.toLowerCase();
+            const salaryFilter = parseFloat(document.getElementById('salary').value) || 0;
+
+            const jobs = document.querySelectorAll('#job-list li');
+            jobs.forEach(job => {
+                const jobLocation = job.getAttribute('data-location').toLowerCase();
+                const jobSalary = parseFloat(job.getAttribute('data-salary')) || 0;
+
+                const locationMatch = locationFilter === 'all' || jobLocation === locationFilter;
+                const salaryMatch = jobSalary >= salaryFilter;
+
+                job.style.display = locationMatch && salaryMatch ? '' : 'none';
+            });
+        }
+
+        function deleteJobAndReload(jobId) {
+            if (confirm('Are you sure you want to delete this job?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/job/delete/' + jobId;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="banner"></div> <!-- Banner Section -->
+    <h1>Job Listings for</br>Your Company</h1>
+
+    <div class="filters">
+        <label for="location">Location:</label>
+        <select id="location" onchange="filterJobs()">
+            <option value="all">All</option>
+            <option value="on-site">On-site</option>
+            <option value="remote">Remote</option>
+            <option value="hybrid">Hybrid</option>
+        </select>
+        <label for="salary">Minimum Salary:</label>
+        <input type="number" id="salary" placeholder="Enter salary" onkeyup="filterJobs()">
+    </div>
+
+    <ul id="job-list">
+        {% for job in jobs %}
+        <li data-location="{{ job['Location'] }}" data-salary="{{ job['Salary'] }}">
+            <h3><a href="/job/{{ job['ID'] }}">{{ job['Title'] }}</a></h3>
+            <p>{{ job['Description'] }}</p>
+            <p><strong>Location:</strong> {{ job['Location'] }}</p>
+            <p><strong>Salary:</strong> ${{ job['Salary'] }}</p>
+            <div class="action-buttons">
+                <form action="/job/update/{{ job['ID'] }}" method="get" style="display: inline;">
+                    <button type="submit" class="btn-update">Update Job</button>
+                </form>
+                <button type="button" class="btn-delete" onclick="deleteJobAndReload({{ job['ID'] }})">
+                    Delete Job
+                </button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if not jobs %}
+    <p style="color:white ; font-size:x-la">No jobs posted yet.</p>
+    {% endif %}
+</body>
+</html>

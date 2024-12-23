@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #b87333;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #12284c;
+            margin-bottom: 30px;
+        }
+
+        /* Candidate List Styling */
+        .candidate-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .candidate {
+            background-color: #12284c;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #f4f4f4;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Animation delay for each card */
+        .candidate:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .candidate:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .candidate:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        /* Buttons Styling */
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #b87333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #a0602b;
+            transform: translateY(-2px);
+        }
+
+        a {
+            color: #f4f4f4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* No Candidates Styling */
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Applicants for Job ID {{ job_id }}</h1>
+
+    <div class="candidate-list">
+        {% for candidate in candidates %}
+        <div class="candidate">
+            <p><strong>Name:</strong> {{ candidate.name }}</p>
+            <p><strong>Email:</strong> {{ candidate.email }}</p>
+            <p><strong>Status:</strong> {{ candidate.status }}</p>
+            {% if candidate.resume %}
+            <p><strong>Resume:</strong> <a href="/static/uploads/{{ candidate.resume }}" download>Download Resume</a></p>
+            {% else %}
+            <p><strong>Resume:</strong> Not available</p>
+            {% endif %}
+
+            <div class="buttons">
+                <form action="/accept/{{ candidate.email }}/{{ job_id }}" method="POST">
+                    <button type="submit">Accept</button>
+                </form>
+                <form action="/reject/{{ candidate.email }}/{{ job_id }}" method="POST">
+                    <button type="submit">Reject</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not candidates %}
+    <p>No candidates have applied for this job yet.</p>
+    {% endif %}
+</body>
+</html>

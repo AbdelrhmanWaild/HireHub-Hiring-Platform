@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <script>
+        function filterJobs() {
+            const locationFilter = document.getElementById("location").value.toLowerCase();
+            const salaryFilter = document.getElementById("salary").value;
+            const searchFilter = document.getElementById("search").value.toLowerCase();
+
+            const jobListItems = document.querySelectorAll("#job-list li");
+
+            jobListItems.forEach(function(job) {
+                const jobLocation = job.getAttribute("data-location").toLowerCase();
+                const jobSalary = job.getAttribute("data-salary");
+                const jobTitle = job.querySelector("h3").textContent.toLowerCase();
+
+                const locationMatch = (locationFilter === "all" || locationFilter === jobLocation);
+                const salaryMatch = (salaryFilter === "" || parseInt(jobSalary) >= parseInt(salaryFilter));
+                const searchMatch = jobTitle.includes(searchFilter);
+
+                job.style.display = (locationMatch && salaryMatch && searchMatch) ? "block" : "none";
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: #b87333;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .small-picture {
+            position: absolute;
+            top: 350px;
+            left: 1155px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .small-picture img {
+            width: 715px;
+        }
+
+        .container {
+            background: rgb(184 115 51);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            background-color: #12284c;
+            margin-bottom: 35px;
+            align-items: center;
+            flex-wrap: wrap;
+            border-style: solid;
+            box-shadow: 0 19px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters label {
+            flex: 1 0 -1px;
+            color: #b87333;
+            font-weight: bold;
+        }
+
+        .filters input, .filters select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 1px;
+            width: 191px;
+        }
+
+        #job-list {
+            list-style-type: none;
+            padding: 0;
+            color: white;
+            font-size: x-large;
+        }
+
+        #job-list li {
+            font-size: medium;
+            background: #12284c;
+            color: #b87333;
+            margin-bottom: 2px;
+            padding: 21px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #job-list h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #007bff;
+        }
+
+        #job-list p {
+            margin: 5px 0;
+        }
+
+        .btn {
+            background-color: #b87333;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #12284c;
+        }
+
+        @media (max-width: 768px) {
+            .filters {
+                flex-wrap: wrap;
+            }
+            .filters label, .filters input, .filters select {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Small Picture Section -->
+    <div class="small-picture">
+        <img src="../static/images/aside_img.png" alt="Logo"> <!-- Replace with your image -->
+    </div>
+
+    <div class="container">
+        <div class="filters">
+            <label for="search">Search:</label>
+            <input type="text" id="search" placeholder="Search jobs..." onkeyup="filterJobs()">
+
+            <label for="location">Location:</label>
+            <select id="location" onchange="filterJobs()">
+                <option value="all">All</option>
+                <option value="on-site">On-site</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+            </select>
+
+            <label for="salary">Min Salary:</label>
+            <input type="number" id="salary" placeholder="Enter salary" onkeyup="filterJobs()">
+        </div>
+
+        <div>
+            <ul id="job-list">
+                {% for job in jobs %}
+                <li data-location="{{ job['Location'] }}" data-salary="{{ job['Salary'] }}">
+                    <h3>{{ job['Title'] }}</h3>
+                    <p>{{ job['Description'] }}</p>
+                    <p><strong>Location:</strong> {{ job['Location'] }}</p>
+                    <p><strong>Salary:</strong> {{ job['Salary'] }}</p>
+                    <form action="/apply/{{ job['ID'] }}" method="post">
+                        <button type="submit" class="btn">Apply</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

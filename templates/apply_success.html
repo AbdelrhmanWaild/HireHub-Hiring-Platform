@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Submitted</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: #b87333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #b87333;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            opacity: 0; /* Start invisible */
+            transform: translateY(50px); /* Start slightly below */
+            animation: fadeIn 1.5s ease-out forwards; /* Fade-in effect */
+        }
+
+        .container h1 {
+            color: #12284c ;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            font-size: 16px;
+            color: #f4f4f4;
+            margin-bottom: 20px;
+        }
+
+        .container p strong {
+            color: #ffffff;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #12284c ;
+            color: #b87333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #12284c;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Remove stray text */
+        p:first-of-type {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Application Submitted</h1>
+        <p>Your application for Job ID: <strong>{{ job_id }}</strong> has been successfully submitted.</p>
+        <a href="/candidate/profile" class="btn">Back to Profile</a>
+    </div>
+</body>
+</html>

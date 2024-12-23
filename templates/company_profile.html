@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+
+        <title>Company Profile</title>
+        <style>
+            /* General Styling */
+            /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap'); */
+
+            body {
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #b87333;
+                background-image: url("../static/images/background.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                min-height: 100vh;
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+                width: 90%;
+                max-width: 600px;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+                margin-top: 50px;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 28px;
+                color: #4a2c18;
+                margin-bottom: 20px;
+                font-weight: 600;
+            }
+
+            .profile-details {
+                background-color: #f0e6dc; /* Light beige for a soft touch */
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid #d9b89c;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+            .update-form {
+                background-color: #f0e6dc; /* Light beige for a soft touch */
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid #d9b89c;
+                margin-bottom: 20px;
+                text-align: left;
+            }
+            .profile-details p {
+                font-size: 16px;
+                margin: 10px 0;
+                color: #4a2c18;
+                font-weight: 500;
+            }
+
+            .profile-details p strong {
+                color: #b87333;
+                font-weight: 600;
+            }
+
+            a {
+                display: inline-block;
+                text-decoration: none;
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #b87333;
+                padding: 12px 20px;
+                border-radius: 5px;
+                font-weight: 600;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+            }
+
+            a:hover {
+                background-color: #8a5024; /* Darker shade of copper */
+                transform: scale(1.05);
+            }
+
+            li {
+                list-style: none;
+                margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 20px;
+                }
+
+                h1 {
+                    font-size: 24px;
+                }
+
+                .profile-details p {
+                    font-size: 14px;
+                }
+
+                a {
+                    font-size: 14px;
+                    padding: 10px 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Your Profile</h1>
+            <div class="profile-details">
+                <p><strong>Name:</strong> {{ name }}</p>
+                <p><strong>Email:</strong> {{ email }}</p>
+                <p><strong>Phone:</strong> {{ phone }}</p>
+            </div>
+            <h1>Update Profile</h1>
+            <div class="update-form">
+                <form action="/company/update-profile" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" value="{{ name }}" required>
+                  </br>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" value="{{ email }}" required>
+                  </br>
+                    <label for="password">Password:</label>
+                    <input type="text" name="password" id="password" value="{{ password }}" required>  
+                  </br>
+                    <label for="phone">Phone:</label>
+                    <input type="text" name="phone" id="phone" value="{{ phone }}" required>
+                  </br>
+                    <button type="submit" class="btn">Update Profile</button>
+                </form>
+            </div>
+            <li><a href="/company/dashboard">Back to Dashboard</a></li>
+        </div>
+    </body>
+</html>

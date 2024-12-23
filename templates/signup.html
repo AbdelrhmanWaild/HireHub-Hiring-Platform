@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* CSS Styles */
+        body {
+            background-color: #b87333;
+            background-image: url("static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-position: 50% ;
+            background-blend-mode: normal;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+          background: #b87333;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          width: 100%;
+          max-width: 400px;
+          padding: 2rem;
+          left: 66px;
+          text-align: center;
+          position: relative;
+          bottom: 44px;
+          height: 610px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input, select, button {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input:focus, select:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+        .btn {
+            background-color: #12284c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #b87333;
+        }
+        .statement1{
+          color: #b87333;
+          font-size: 25px;
+          position: relative;
+          bottom: 150px;
+          left: 150px;
+        }
+        .statement2{
+          color: #b87333;
+          font-size: 45px;
+          font-family: modern-londrina-black, "sans-serif" !important;
+          position: relative;
+          bottom: 70px;
+          left: -8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="statement2">We get you from “hi” </br>to “hired”</div>
+    
+    <div class="container">
+        <h1 class="title">Sign Up</h1>
+        <form action="/signup" method="post">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" id="phone" required>
+
+            <label for="type">User Type:</label>
+            <select name="type" id="type">
+                <option value="candidate">Candidate</option>
+                <option value="company">Company</option>
+            </select>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+    </div>
+    <!-- <img class="section-image-outofthebox" src="images/UND_IMG.svg" alt="Decorative image"> -->
+
+</body>
+</html>

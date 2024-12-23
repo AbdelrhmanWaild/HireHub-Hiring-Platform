@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Company Jobs Dashboard</title>
+        <link rel="stylesheet" href="/static/style.css">
+        <style>
+            /* General Styling */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+            body {
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #b87333;
+                background-image: url('../static/images/background.jpg');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                min-height: 100vh;
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.9);
+                width: 90%;
+                max-width: 900px;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                margin-top: 50px;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 32px;
+                color: #4a2c18;
+                margin-bottom: 30px;
+                font-weight: 600;
+            }
+
+            .job-listings {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .job-listing {
+                background-color: #f9f7f2;
+                padding: 20px;
+                border-radius: 12px;
+                border: 1px solid #e4d7b6;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .job-listing:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .job-listing h3 {
+                font-size: 24px;
+                color: #4a2c18;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            .job-listing p {
+                font-size: 16px;
+                color: #4a2c18;
+                margin-bottom: 10px;
+                font-weight: 500;
+            }
+
+            .job-listing p strong {
+                color: #b87333;
+            }
+
+            .message {
+                padding: 15px;
+                background-color: #e1f5e6;
+                border: 1px solid #c0e8d4;
+                border-radius: 8px;
+                color: #388e3c;
+                margin-bottom: 30px;
+                font-size: 16px;
+            }
+
+            .back-btn {
+                display: inline-block;
+                text-decoration: none;
+                background-color: #b87333;
+                color: #fff;
+                padding: 12px 20px;
+                border-radius: 5px;
+                font-weight: 600;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                margin-top: 30px;
+            }
+
+            .back-btn:hover {
+                background-color: #8a5024;
+                transform: scale(1.05);
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    padding: 20px;
+                }
+
+                h1 {
+                    font-size: 26px;
+                }
+
+                .job-listing {
+                    padding: 15px;
+                }
+
+                .job-listing h3 {
+                    font-size: 20px;
+                }
+
+                .job-listing p {
+                    font-size: 14px;
+                }
+
+                .back-btn {
+                    font-size: 14px;
+                    padding: 10px 16px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ session['user'] }} - Job Listings</h1>
+
+            <!-- Display message if provided -->
+            {% if message %}
+                <div class="message">
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
+
+            <!-- Check if jobs are available -->
+            {% if not jobs.empty %}
+                <div class="job-listings">
+                    {% for index, job in jobs.iterrows() %}
+                        <div class="job-listing">
+                            <h3>{{ job['Title'] }}</h3>
+                            <p><strong>Description:</strong> {{ job['Description'] }}</p>
+                            <p><strong>Qualifications:</strong> {{ job['Qualifications'] }}</p>
+                            <p><strong>Responsibilities:</strong> {{ job['Responsibilities'] }}</p>
+                            <p><strong>Salary:</strong> {{ job['Salary'] }}</p>
+                            <p><strong>Location:</strong> {{ job['Location'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No jobs posted by your company yet.</p>
+            {% endif %}
+            <a href="/company/dashboard" class="back-btn">Back to Dashboard</a>
+        </div>
+    </body>
+</html>

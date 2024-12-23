@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            background-color: #b87333;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-position: 50% ;
+            background-blend-mode: normal;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        } */
+
+        .container {
+            background: #b87333;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            position: absolute;
+            padding: 20px 30px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea, select, button {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background: #12284c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #b87333;
+        }
+        .la{
+          background: #12284c;
+          color: #b87333;
+        }
+        #blabla{
+          left:-600px;
+          position: relative;
+          top: -230px;
+        }
+        #bl{
+          color:#12284c;
+        }
+        #bro{
+          color:#b87333;
+        }
+
+        .extra-content-col{
+          /* background-color: white; */
+          width: 200px;
+          height:1000px;
+          right: -600px;
+          /* padding: 50px; */
+          /* top: 50px; */
+          position: relative;
+        }
+        .form-quotes-container
+        {
+          padding: 20px;
+          margin-top: 90px;
+          color: white;
+        }
+    </style>
+</head>
+<body>
+  <div class="extra-content-col">
+    <div class="form-quotes-container">
+      <div class="form-quote">
+        <p>
+          <img  alt="" src="../static/images\person1.webp" width="136" height="160">
+        </p>
+        <div class="content">
+          <p>
+            “BambooHR is a 9.5 out of 10 in terms of ease of use and how quickly we learned how to manage the product.”
+        </p>
+      </div>
+    </div>
+    <div class="form-quote">
+      <p>
+        <img  alt="" src="../static/images\person2.webp" width="136" height="158">
+      </p>
+    <div class="content">
+      <p>
+        “Our benefits administration process after open enrollment went from being a 3 week grind to just a couple days.”
+      </p>
+    </div>
+    </div>
+    <div class="form-quote">
+      <p>
+        <img  alt="" src="../static/images\person3.webp" width="136" height="158">
+      </p>
+      <div class="content">
+        <p>
+          “BambooHR’s payroll system has saved me almost 20 hours a week. We’ve honestly saved $20,000 over a year.”
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <h1 id="blabla"><span id="bl">Truste</span><span id="bro">d by over</span></br>
+                  <span id="bl">30,00</span><span id="bro">0 companies</span></h1>
+    <div class="container">
+        <h1 class="title">Post a New Job</h1>
+        <form action="/company/post-job" method="post">
+
+            <label for="title"  class="la">Job Title:</label>
+            <input type="text" name="title" id="title" placeholder="Enter job title" required>
+
+            <label for="description" class="la">Description:</label>
+            <textarea name="description" id="description" placeholder="Enter job description" required></textarea>
+
+            <label for="qualifications" class="la">Qualifications:</label>
+            <textarea name="qualifications" id="qualifications" placeholder="List qualifications required" required></textarea>
+
+            <label for="responsibilities" class="la">Responsibilities:</label>
+            <textarea name="responsibilities" id="responsibilities" placeholder="Outline job responsibilities" required></textarea>
+
+            <label for="salary" class="la">Salary:</label>
+            <input type="text" name="salary" id="salary" placeholder="Enter salary details" required>
+
+            <label for="location" class="la">Location:</label>
+            <select name="location" id="location">
+                <option value="on-site">On-site</option>
+                <option value="remote">Remote</option>
+                <option value="hybrid">Hybrid</option>
+            </select>
+
+            <button type="submit" class="btn">Post Job</button>
+        </form>
+    </div>
+</body>
+</html>

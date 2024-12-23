@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Dashboard</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b87333;
+            background-image: url("../static/images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            /* max-width: 600px; */
+
+            margin: 50px auto;
+            text-align: center;
+            /* background-color: rgba(0, 0, 0, 0.7); */
+            padding: 30px;
+            border-radius: 10px;
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); */
+        }
+
+        .title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #b87333;
+        }
+
+        p {
+          font-size: 16px;
+          margin-bottom: 20px;
+          color: #b87333;
+          position: relative;
+          left: 31px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 15px 0;
+        }
+
+        ul li a {
+          text-decoration: none;
+          font-size: 18px;
+          color: #b87333;
+          background-color: #b87333;
+          padding: 10px 20px;
+          border-radius: 80px;
+          transition: all 0.3s ease-in-out;
+          display: inline-block;
+          color: #12284c;
+        }
+
+        ul li a:hover {
+            background-color: #b87333;
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            ul li a {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+        }
+        #ff{
+              position: relative;
+              top: 20px;
+              /* right: 401px; */
+              left: 638px;
+        }
+        #a{
+          position: relative ;
+          top: -15px ;
+          left: -410px ;
+        }
+        #b{
+          position: relative;
+          top: -71px;
+          left: 466px;
+        }
+        /* #c{
+
+        } */
+    </style>
+</head>
+<body>
+    <div id="ff">
+      <h1 class="title">Welcome, Company</h1>
+      <p>Manage your job postings:</p>
+    </div>
+    <div class="container">
+
+        <ul>
+            <li ><a id="a" href="/company/jobs_dashboard">Your Job Listings</a></li>
+            <li ><a id="b" href="/company/post-job">Post a New Job</a></li>
+            <li ><a id="c" href="/company/profile">Your Profile</a></li>
+        </ul>
+    </div>
+</body>
+</html>

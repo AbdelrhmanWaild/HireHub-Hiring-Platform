@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Applications</title>
+    <style>
+        /* General Styling */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #b87333;
+            background-image: url("../static/images/background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #4a2c18;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #f0e6dc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table thead {
+            background-color: #b87333;
+            color: #ffffff;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 16px;
+            color: #4a2c18;
+        }
+
+        table th {
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8f1e9;
+        }
+
+        table tr:hover {
+            background-color: #e0c7b3;
+            transition: background-color 0.3s ease;
+        }
+
+        p {
+            font-size: 16px;
+            color: #4a2c18;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            table th, table td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Applications</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Status</th>
+                    <th>Company</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td>{{ application['JobTitle'] }}</td>
+                    <td>{{ application['Status'] }}</td>
+                    <td>{{ application['Company'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not applications %}
+        <p>No applications found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
